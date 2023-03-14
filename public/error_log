@@ -1,0 +1,2 @@
+[05-Mar-2023 05:29:57 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.3.33. in /home/webxpart/myblog.webexpertaz.com/vendor/composer/platform_check.php on line 24
+[05-Mar-2023 05:31:03 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.3.33. in /home/webxpart/myblog.webexpertaz.com/vendor/composer/platform_check.php on line 24
