@@ -27,6 +27,7 @@
                 ->first();
             
         @endphp
+        @if($page->template == 1)
         @if (!empty($email))
             @if (($email == 'superadmin@gmail.com' && $privatepage->privatepage == '1') || $privatepage->privatepage == '0')
                 @if ($page->template == 1 || $page->template == 2)
@@ -73,4 +74,13 @@
                 });
             </script>
         @endif
+        @endif
+        @if( $page->template == 2)
+     {{-- @include('parentFolder.childFolder.mypage') --}}
+        @include('blog.pages.contactpage')
+        
+   
+        
+        @endif
+        
     @endsection
