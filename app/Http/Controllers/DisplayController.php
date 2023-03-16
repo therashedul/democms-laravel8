@@ -16,6 +16,8 @@ use App\Models\Comment;
 use App\Models\Slider;
 use App\Models\Postmeta;
 use App\Models\Page;
+use App\Models\Contact;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -41,6 +43,40 @@ use Illuminate\Support\Str;
 
 class DisplayController extends Controller
 {
+    public function contactForm()
+    {
+        return view('contactForm');
+    }
+
+    public function storeContactForm(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'subject' => 'required',
+            'message' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+
+        $input = $request->all();
+
+        Contact::create($input);
+
+        //  Send mail to admin
+        \Mail::send('contactMail', array(
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'phone' => $input['phone'],
+            'subject' => $input['subject'],
+            'msg' => $input['message'],
+        ), function($message) use ($request){
+            $message->from($request->email);
+            $message->to('rasel.netrweb@gmail.com', 'Admin')->subject($request->get('subject'));
+        });
+
+        return redirect()->back()->with(['success' => 'Contact Form Submit Successfully']);
+    }
 
 public function sitemapxml($value=''){
         $posts = Post::latest()->get();       
@@ -319,6 +355,7 @@ public function sitemapxmlcategory($value=''){
     public function commentsstore( Request $request){   
             $request->validate([
             'comment_body'=>'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
          return(new Displaycrud)->commentsstore($request); 
     }

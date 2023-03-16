@@ -46,6 +46,10 @@ Route::get('artisan', [App\Http\Controllers\DisplayController::class, 'artisanco
 Route::get('sitemap.xml', [App\Http\Controllers\DisplayController::class, 'sitemapxml'])->name('sitemap.xml');
 Route::get('sitemap.xml/category', [App\Http\Controllers\DisplayController::class, 'sitemapxmlcategory'])->name('sitemap.xml/category');
 
+Route::get('/contact-form', [App\Http\Controllers\DisplayController::class, 'contactForm'])->name('contact-form');
+Route::post('/contact-form', [App\Http\Controllers\DisplayController::class, 'storeContactForm'])->name('contact-form.store');
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');
